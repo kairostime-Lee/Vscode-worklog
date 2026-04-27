@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero 方案A — 浅色亮调 Apple 风格</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #FAF9F6; color: #4A3E38; line-height: 1.6; }
+
+    /* ── HERO A: 浅色亮调，Apple 风格 ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 680px;
+      overflow: hidden;
+      background: #F0EDE7;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    /* 方案A：右侧图片完整显示，左侧轻微白色雾化保障文字可读 */
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,
+          rgba(240,237,231,0.96) 0%,
+          rgba(240,237,231,0.80) 35%,
+          rgba(240,237,231,0.30) 60%,
+          transparent 100%),
+        linear-gradient(to top,
+          rgba(240,237,231,0.55) 0%,
+          transparent 40%);
+    }
+    .hero__content {
+      position: absolute;
+      top: 50%;
+      left: 80px;
+      transform: translateY(-50%);
+      max-width: 560px;
+    }
+
+    .hero__label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+      color: rgba(44,40,38,0.42);
+      margin-bottom: 20px;
+    }
+    .hero__headline {
+      font-size: clamp(40px, 5.2vw, 68px);
+      font-weight: 300;
+      color: #1A1612;
+      line-height: 1.07;
+      letter-spacing: -0.024em;
+      margin-bottom: 36px;
+    }
+    .hero__headline strong { font-weight: 700; display: block; }
+
+    /* 方案A badges：浅底深字，无边框 */
+    .hero__badges {
+      display: flex;
+      margin-bottom: 40px;
+      border: 1px solid rgba(44,40,38,0.12);
+      border-right: none;
+      width: fit-content;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .hbadge {
+      padding: 16px 28px;
+      border-right: 1px solid rgba(44,40,38,0.10);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .hbadge__val {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1A1612;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .hbadge__val .unit { font-size: 13px; font-weight: 300; letter-spacing: 0; }
+    .hbadge__lbl {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(44,40,38,0.45);
+      line-height: 1.45;
+    }
+    .hbadge__lbl .hl { color: #2563EB; }
+
+    /* 方案A 按钮：深色主按钮 + 线框次按钮 */
+    .hero__btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      border-radius: 0;
+      border: none;
+      cursor: pointer;
+      padding: 16px 40px;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn--primary { font-weight: 700; background: #1A1612; color: #F5F2EE; }
+    .btn--primary:hover { background: #2C2826; }
+    .btn--ghost {
+      font-weight: 300;
+      background: transparent;
+      color: rgba(44,40,38,0.65);
+      border: 1px solid rgba(44,40,38,0.25);
+    }
+    .btn--ghost:hover { border-color: rgba(44,40,38,0.55); color: #1A1612; }
+
+    /* 方案标注 */
+    .variant-tag {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 11px;
+      font-family: monospace;
+      padding: 6px 12px;
+      letter-spacing: 0.1em;
+      z-index: 9999;
+    }
+
+    @media (max-width: 900px) {
+      .hero { height: auto; min-height: unset; display: flex; flex-direction: column; }
+      .hero__bg { position: relative; width: 100%; height: 62vw; min-height: 260px; object-fit: cover; }
+      .hero__overlay { display: none; }
+      .hero__content {
+        position: relative; top: unset; left: unset; transform: none;
+        max-width: 100%; padding: 36px 24px 48px;
+        background: #F0EDE7;
+      }
+      .hero__badges { flex-wrap: wrap; border: none; width: 100%; background: transparent; }
+      .hbadge { flex: 1 1 calc(50% - 1px); min-width: 0; border: 1px solid rgba(44,40,38,0.10); margin-bottom: 1px; }
+      .hero__btns .btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="variant-tag">方案 A — 浅色亮调 Apple 风格</div>
+
+<section class="hero">
+  <img
+    class="hero__bg"
+    src="海报输出/Gemini_Generated_Image_10vx5q10vx5q10vx.png"
+    alt="Opula desk lamp on warm stone surface"
+  />
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+
+    <p class="hero__label">Opula Technology</p>
+
+    <h1 class="hero__headline">
+      Light that
+      <strong>works with you.</strong>
+    </h1>
+
+    <div class="hero__badges">
+      <div class="hbadge">
+        <div class="hbadge__val">Ra<span class="unit">≥97</span></div>
+        <div class="hbadge__lbl">Full Spectrum<br>Eye Care</div>
+      </div>
+      <div class="hbadge">
+        <div class="hbadge__val">52<span class="unit">→</span>67<span class="unit">cm</span></div>
+        <div class="hbadge__lbl">Patented<br>Telescoping</div>
+      </div>
+      <div class="hbadge">
+        <div class="hbadge__val">8<span class="unit">m</span></div>
+        <div class="hbadge__lbl">Offline Voice<br><span class="hl">"Hello Star"</span></div>
+      </div>
+      <div class="hbadge">
+        <div class="hbadge__val" style="font-size:16px;letter-spacing:0.04em;padding-top:3px">IEC</div>
+        <div class="hbadge__lbl">Blue Light<br>Certified</div>
+      </div>
+    </div>
+
+    <div class="hero__btns">
+      <a href="#" class="btn btn--primary">Shop Now — $149.99</a>
+      <button class="btn btn--ghost">&#9654;&nbsp; Watch It Extend</button>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

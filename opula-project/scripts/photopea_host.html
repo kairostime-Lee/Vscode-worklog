@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head><title>Photopea Automation</title></head>
+<body>
+<h3 id="status">Loading Photopea...</h3>
+<iframe id="pp" src="https://www.photopea.com#%7B%7D" style="width:100%;height:90vh;border:none;"></iframe>
+<script>
+var pp = document.getElementById("pp");
+var status = document.getElementById("status");
+var resultFiles = [];
+var ready = false;
+
+window.addEventListener("message", function(e) {
+    if (e.source !== pp.contentWindow) return;
+
+    if (e.data === "done") {
+        if (!ready) {
+            ready = true;
+            status.textContent = "Photopea ready!";
+            document.title = "PP_READY";
+        } else {
+            document.title = "PP_CMD_DONE_" + Date.now();
+        }
+    } else if (e.data instanceof ArrayBuffer) {
+        resultFiles.push(e.data);
+        status.textContent = "Received file: " + e.data.byteLength + " bytes";
+        document.title = "PP_FILE_" + resultFiles.length;
+    } else if (typeof e.data === "string") {
+        status.textContent = "Echo: " + e.data;
+        if (e.data === "SCRIPT_DONE") {
+            document.title = "PP_SCRIPT_DONE";
+        }
+    }
+});
+
+// Functions called by Puppeteer
+window.sendFile = function(arrayBuffer) {
+    pp.contentWindow.postMessage(arrayBuffer, "*");
+    status.textContent = "Sending file...";
+};
+
+window.runScript = function(script) {
+    pp.contentWindow.postMessage(script, "*");
+    status.textContent = "Running script...";
+};
+
+window.getLastFile = function() {
+    if (resultFiles.length === 0) return null;
+    var buf = resultFiles[resultFiles.length - 1];
+    return Array.from(new Uint8Array(buf));
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C1 — Studio Black</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#111318; }
+
+    /* C1: 深黑背景 + 白底产品图 multiply 混合 + 蓝调 */
+    .hero {
+      position: relative;
+      width: 100%; height: 100vh; min-height: 680px;
+      overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 72% 50%, #1E2A3A 0%, #0D1018 60%, #080A0E 100%);
+      display: flex;
+      align-items: center;
+    }
+    /* 产品图：右侧大图，mix-blend-mode multiply 去白底 */
+    .hero__product {
+      position: absolute;
+      right: -4%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 58%;
+      max-width: 820px;
+    }
+    .hero__product img {
+      width: 100%;
+      display: block;
+      mix-blend-mode: multiply;
+      filter: brightness(1.08) contrast(1.05);
+    }
+    /* 右侧渐变遮住图片右边缘 */
+    .hero__product::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to left, rgba(8,10,14,0.55) 0%, transparent 30%);
+    }
+    /* 左侧文字区暗化处理 */
+    .hero__left-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+        rgba(8,10,14,1.0) 0%,
+        rgba(8,10,14,0.88) 30%,
+        rgba(8,10,14,0.30) 55%,
+        transparent 72%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding-left: 88px;
+      max-width: 560px;
+    }
+    .hero__eyebrow {
+      font-size: 10px; letter-spacing: 0.50em; text-transform: uppercase;
+      color: #4A7FBA; margin-bottom: 22px; font-weight: 400;
+    }
+    .hero__headline {
+      font-size: clamp(38px, 4.8vw, 64px);
+      font-weight: 300; color: #EEF2F8;
+      line-height: 1.06; letter-spacing: -0.024em; margin-bottom: 24px;
+    }
+    .hero__headline strong { font-weight: 700; display: block; color: #fff; }
+    .hero__sub {
+      font-size: 14px; color: rgba(200,215,235,0.52);
+      line-height: 1.75; margin-bottom: 40px; max-width: 380px; letter-spacing: 0.01em;
+    }
+    /* 规格行 */
+    .hero__specs {
+      display: flex; gap: 0;
+      border-top: 1px solid rgba(74,127,186,0.20);
+      border-bottom: 1px solid rgba(74,127,186,0.20);
+      padding: 18px 0; margin-bottom: 36px;
+    }
+    .hspec {
+      flex: 1; padding-right: 24px;
+      border-right: 1px solid rgba(74,127,186,0.15);
+      margin-right: 24px;
+    }
+    .hspec:last-child { border-right:none; margin-right:0; padding-right:0; }
+    .hspec__val { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1; margin-bottom: 4px; }
+    .hspec__val .u { font-size: 12px; font-weight: 300; }
+    .hspec__lbl { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(74,127,186,0.70); }
+    /* CTA */
+    .hero__btns { display: flex; gap: 12px; }
+    .btn { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; cursor:pointer; padding:14px 36px; transition:all 0.18s; text-decoration:none; display:inline-block; border:none; }
+    .btn--primary { font-weight:700; background:#EEF2F8; color:#0D1018; }
+    .btn--primary:hover { background:#C8D8EA; }
+    .btn--ghost { font-weight:300; background:transparent; color:rgba(200,215,235,0.60); border:1px solid rgba(74,127,186,0.30); }
+    .btn--ghost:hover { border-color:rgba(74,127,186,0.65); color:#EEF2F8; }
+    /* 右下：产品规格提示 */
+    .hero__aside {
+      position: absolute; bottom: 36px; right: 48px; text-align: right; z-index: 2;
+    }
+    .hero__aside p { font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(74,127,186,0.40); line-height: 1.8; }
+    .variant-tag { position:fixed; top:20px; right:20px; background:rgba(0,0,0,0.75); color:#fff; font-size:11px; font-family:monospace; padding:6px 12px; letter-spacing:0.1em; z-index:9999; }
+  </style>
+</head>
+<body>
+<div class="variant-tag">C1 — Studio Black</div>
+<section class="hero">
+  <div class="hero__product">
+    <img src="产品图片/白底照片/伸缩台灯/多角度/1.jpg" alt="Opula space gray desk lamp" />
+  </div>
+  <div class="hero__left-fade"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Opula Technology — Intelligent Desk Lamp</p>
+    <h1 class="hero__headline">Guard your<strong>vision. Always.</strong></h1>
+    <p class="hero__sub">Museum-grade Ra≥97 full spectrum. IEC blue-light certified. Built for people who take their work — and their eyes — seriously.</p>
+    <div class="hero__specs">
+      <div class="hspec">
+        <div class="hspec__val">Ra<span class="u">≥97</span></div>
+        <div class="hspec__lbl">Full Spectrum</div>
+      </div>
+      <div class="hspec">
+        <div class="hspec__val">67<span class="u">cm</span></div>
+        <div class="hspec__lbl">Max Reach</div>
+      </div>
+      <div class="hspec">
+        <div class="hspec__val">8<span class="u">m</span></div>
+        <div class="hspec__lbl">Voice Range</div>
+      </div>
+      <div class="hspec">
+        <div class="hspec__val" style="font-size:14px;padding-top:2px">IEC</div>
+        <div class="hspec__lbl">Certified</div>
+      </div>
+    </div>
+    <div class="hero__btns">
+      <a href="#" class="btn btn--primary">Shop Now — $149.99</a>
+      <button class="btn btn--ghost">▶ Watch It Extend</button>
+    </div>
+  </div>
+  <div class="hero__aside">
+    <p>Space Gray Aluminum</p>
+    <p>52 → 67 cm Patented Telescoping</p>
+    <p>"Hello Star" Offline Voice</p>
+  </div>
+</section>
+</body>
+</html>

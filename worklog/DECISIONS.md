@@ -8,3 +8,6 @@
 - GitHub 私有仓库已采用：`kairostime-Lee/Vscode-worklog`
 - 手机远控主方案采用：`Chrome Remote Desktop`
 - `RustDesk` 作为备用远控方案保留
+- Opula 项目采用“镜像备份入仓”策略，不直接把 `D:\ClaudeWork` 全量混入仓库
+- 当前优先备份 Opula 核心文档、原型、脚本与高价值素材
+- 大批量原始实拍图暂缓全量纳入，后续如需要再单独扩容

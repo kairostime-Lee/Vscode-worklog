@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero 全方案对比</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#0A0A0A; font-family:monospace; overflow:hidden; height:100vh; }
+
+    .nav {
+      position:fixed; top:0; left:0; right:0; height:44px;
+      background:rgba(0,0,0,0.94);
+      display:flex; align-items:center; justify-content:center;
+      gap:0; z-index:9999;
+      border-bottom:1px solid rgba(255,255,255,0.07);
+    }
+    .nav-group { display:flex; align-items:center; gap:0; }
+    .nav-sep {
+      width:1px; height:20px;
+      background:rgba(255,255,255,0.10); margin:0 4px;
+    }
+    .nav a {
+      color:rgba(255,255,255,0.38); text-decoration:none;
+      font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+      padding:6px 11px; border-bottom:2px solid transparent;
+      transition:color 0.15s, border-color 0.15s; white-space:nowrap;
+    }
+    .nav a.active { color:#fff; border-bottom-color:#F59E0B; }
+    .nav a:hover { color:rgba(255,255,255,0.80); }
+    .nav a.group-label {
+      color:rgba(255,255,255,0.18); font-size:9px;
+      pointer-events:none; padding:6px 8px; cursor:default;
+    }
+
+    .panels {
+      display:flex; height:calc(100vh - 44px); margin-top:44px;
+    }
+    .panel {
+      flex:1; border-right:2px solid #0A0A0A;
+      overflow:hidden; position:relative; display:none;
+    }
+    .panel.active { display:block; }
+    .panel iframe { width:100%; height:100%; border:none; display:block; }
+    .panel__label {
+      position:absolute; bottom:10px; left:10px;
+      background:rgba(0,0,0,0.70); color:rgba(255,255,255,0.70);
+      font-size:9px; padding:3px 8px; letter-spacing:0.10em;
+      pointer-events:none; z-index:10;
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <span class="nav a group-label" style="color:rgba(255,255,255,0.18);font-size:9px;padding:6px 10px;letter-spacing:0.14em">A/B</span>
+  <a href="#" onclick="showOne('A');return false;" id="btn-A">A 浅色亮调</a>
+  <a href="#" onclick="showOne('B');return false;" id="btn-B">B 强渐变深色</a>
+  <div class="nav-sep"></div>
+  <span style="color:rgba(255,255,255,0.18);font-size:9px;padding:6px 10px;letter-spacing:0.14em">D</span>
+  <a href="#" onclick="showOne('D');return false;" id="btn-D">D 海报蓝调</a>
+  <div class="nav-sep"></div>
+  <span style="color:rgba(255,255,255,0.18);font-size:9px;padding:6px 10px;letter-spacing:0.14em">C</span>
+  <a href="#" onclick="showOne('C1');return false;" id="btn-C1">C1 Studio Black</a>
+  <a href="#" onclick="showOne('C2');return false;" id="btn-C2">C2 Warm Pro</a>
+  <a href="#" onclick="showOne('C3');return false;" id="btn-C3">C3 Apple White</a>
+  <a href="#" onclick="showOne('C4');return false;" id="btn-C4">C4 Night Cinema</a>
+  <a href="#" onclick="showOne('C5');return false;" id="btn-C5">C5 Detail Close-up</a>
+  <div class="nav-sep"></div>
+  <a href="#" onclick="showGroup('C');return false;" id="btn-groupC">C 全部</a>
+  <a href="#" onclick="showAll();return false;" id="btn-all">全部</a>
+</nav>
+
+<div class="panels" id="panels">
+  <div class="panel" id="panel-A"><div class="panel__label">A — 浅色亮调</div><iframe src="hero-A.html"></iframe></div>
+  <div class="panel" id="panel-B"><div class="panel__label">B — 强渐变深色</div><iframe src="hero-B.html"></iframe></div>
+  <div class="panel" id="panel-D"><div class="panel__label">D — 海报蓝调</div><iframe src="hero-D.html"></iframe></div>
+  <div class="panel" id="panel-C1"><div class="panel__label">C1 — Studio Black</div><iframe src="hero-C1.html"></iframe></div>
+  <div class="panel" id="panel-C2"><div class="panel__label">C2 — Warm Monitor Pro</div><iframe src="hero-C2.html"></iframe></div>
+  <div class="panel" id="panel-C3"><div class="panel__label">C3 — Clean White Apple</div><iframe src="hero-C3.html"></iframe></div>
+  <div class="panel" id="panel-C4"><div class="panel__label">C4 — Night Office Cinema</div><iframe src="hero-C4.html"></iframe></div>
+  <div class="panel" id="panel-C5"><div class="panel__label">C5 — Detail Close-up</div><iframe src="hero-C5.html"></iframe></div>
+</div>
+
+<script>
+  var all = ['A','B','D','C1','C2','C3','C4','C5'];
+
+  function clearAll() {
+    all.forEach(function(id) {
+      document.getElementById('panel-'+id).classList.remove('active');
+      var btn = document.getElementById('btn-'+id);
+      if(btn) btn.classList.remove('active');
+    });
+    ['btn-groupC','btn-all'].forEach(function(b){
+      var el=document.getElementById(b); if(el) el.classList.remove('active');
+    });
+  }
+
+  function showOne(id) {
+    clearAll();
+    document.getElementById('panel-'+id).classList.add('active');
+    var btn = document.getElementById('btn-'+id);
+    if(btn) btn.classList.add('active');
+  }
+
+  function showGroup(g) {
+    clearAll();
+    ['C1','C2','C3','C4','C5'].forEach(function(id){
+      document.getElementById('panel-'+id).classList.add('active');
+    });
+    document.getElementById('btn-groupC').classList.add('active');
+  }
+
+  function showAll() {
+    clearAll();
+    all.forEach(function(id){
+      document.getElementById('panel-'+id).classList.add('active');
+    });
+    document.getElementById('btn-all').classList.add('active');
+  }
+
+  // 默认显示 C 全部对比
+  showGroup('C');
+</script>
+</body>
+</html>

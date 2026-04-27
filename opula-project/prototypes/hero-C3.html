@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C3 — Clean White Apple Style</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#F5F4F1; }
+
+    /* C3: Apple 风格 — 大量留白，产品居中主角，银色调 */
+    .hero {
+      width: 100%; min-height: 100vh;
+      background: linear-gradient(170deg, #FAFAF8 0%, #F0EDE8 60%, #E8E4DE 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 60px 40px 48px;
+    }
+    /* 极细顶部品牌线 */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent 0%, #BCBCBC 30%, #BCBCBC 70%, transparent 100%);
+    }
+    /* 背景大圆晕 */
+    .hero__glow {
+      position: absolute;
+      top: 10%; left: 50%; transform: translateX(-50%);
+      width: 70vw; height: 70vw; max-width: 900px; max-height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,195,215,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* 顶部：品牌 + 标语 */
+    .hero__top {
+      text-align: center;
+      margin-bottom: 8px;
+      position: relative; z-index: 2;
+    }
+    .hero__brand {
+      font-size: 10px; letter-spacing: 0.55em; text-transform: uppercase;
+      color: rgba(60,60,60,0.38); font-weight: 400; margin-bottom: 32px;
+    }
+    .hero__headline {
+      font-size: clamp(36px, 5vw, 68px);
+      font-weight: 300; color: #1C1C1E;
+      line-height: 1.06; letter-spacing: -0.026em;
+    }
+    .hero__headline strong { font-weight: 700; }
+
+    /* 中间：大产品图 */
+    .hero__product {
+      position: relative; z-index: 2;
+      width: 55%; max-width: 600px; min-width: 300px;
+      margin: 0 auto;
+    }
+    .hero__product img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 28px 48px rgba(0,0,0,0.10)) drop-shadow(0 8px 16px rgba(0,0,0,0.07));
+    }
+
+    /* 底部：规格横排 + CTA */
+    .hero__bottom {
+      text-align: center;
+      position: relative; z-index: 2;
+      margin-top: -20px;
+    }
+    .hero__sub {
+      font-size: 16px; font-weight: 300; color: rgba(60,60,60,0.55);
+      letter-spacing: 0.01em; margin-bottom: 32px;
+    }
+    /* 规格小标签 */
+    .hero__tags {
+      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .htag {
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(60,60,60,0.45);
+      border: 1px solid rgba(60,60,60,0.15);
+      padding: 6px 16px;
+    }
+    /* CTA */
+    .hero__btns { display: flex; gap: 12px; justify-content: center; }
+    .btn { font-family:'Inter',sans-serif; font-size:11.5px; letter-spacing:0.22em; text-transform:uppercase; cursor:pointer; padding:15px 42px; transition:all 0.18s; text-decoration:none; display:inline-block; border:none; }
+    .btn--primary { font-weight:700; background:#1C1C1E; color:#FAFAF8; }
+    .btn--primary:hover { background:#2C2C2E; }
+    .btn--ghost { font-weight:300; background:transparent; color:rgba(60,60,60,0.55); border:1px solid rgba(60,60,60,0.20); }
+    .btn--ghost:hover { border-color:rgba(60,60,60,0.45); color:#1C1C1E; }
+
+    .variant-tag { position:fixed; top:20px; right:20px; background:rgba(0,0,0,0.75); color:#fff; font-size:11px; font-family:monospace; padding:6px 12px; letter-spacing:0.1em; z-index:9999; }
+  </style>
+</head>
+<body>
+<div class="variant-tag">C3 — Clean White Apple Style</div>
+<section class="hero">
+  <div class="hero__glow"></div>
+  <div class="hero__top">
+    <p class="hero__brand">Opula Technology</p>
+    <h1 class="hero__headline">Light that <strong>works with you.</strong></h1>
+  </div>
+  <div class="hero__product">
+    <img src="产品图片/白底照片/伸缩台灯/多角度/3.jpg" alt="Opula desk lamp silver" />
+  </div>
+  <div class="hero__bottom">
+    <p class="hero__sub">Full spectrum Ra≥97 · Patented telescoping 52–67 cm · Offline voice control</p>
+    <div class="hero__tags">
+      <span class="htag">IEC Blue Light Certified</span>
+      <span class="htag">Flicker-Free</span>
+      <span class="htag">Ra ≥ 97</span>
+      <span class="htag">"Hello Star" Voice</span>
+      <span class="htag">52 → 67 cm</span>
+    </div>
+    <div class="hero__btns">
+      <a href="#" class="btn btn--primary">Shop Now — $149.99</a>
+      <button class="btn btn--ghost">▶ Watch It Extend</button>
+    </div>
+  </div>
+</section>
+</body>
+</html>

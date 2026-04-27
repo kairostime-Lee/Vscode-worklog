@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero 方案C — 夜间沉浸式场景</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0A0806; color: #F5F2EE; line-height: 1.6; }
+
+    /* ══════════════════════════════════════════
+       HERO C — 全屏夜间场景，电影感沉浸式
+    ══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+      background: #0A0806;
+    }
+
+    /* 背景图：占满全屏 */
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      /* 轻微色温调整：更暖、更电影感 */
+      filter: brightness(0.75) saturate(1.15) sepia(0.08);
+    }
+
+    /* 三层渐变叠加：
+       1. 左侧文字区深化
+       2. 底部收黑
+       3. 顶部细晕，增加景深感 */
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,
+          rgba(6,4,2,0.92) 0%,
+          rgba(6,4,2,0.78) 30%,
+          rgba(6,4,2,0.38) 58%,
+          rgba(6,4,2,0.06) 80%,
+          transparent 100%),
+        linear-gradient(to top,
+          rgba(6,4,2,0.88) 0%,
+          rgba(6,4,2,0.30) 28%,
+          transparent 55%),
+        linear-gradient(to bottom,
+          rgba(6,4,2,0.45) 0%,
+          transparent 18%);
+    }
+
+    /* 台灯暖光晕染：模拟画面中台灯的环境光 */
+    .hero__lamp-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse 45% 35% at 72% 52%,
+        rgba(210,155,60,0.14) 0%,
+        rgba(210,155,60,0.06) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    /* 内容：左下定位 */
+    .hero__content {
+      position: absolute;
+      bottom: 72px;
+      left: 88px;
+      max-width: 580px;
+    }
+
+    /* 品牌标签 */
+    .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .hero__brand {
+      font-size: 10.5px;
+      font-weight: 400;
+      letter-spacing: 0.50em;
+      text-transform: uppercase;
+      color: rgba(245,242,238,0.38);
+    }
+    .hero__dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(245,242,238,0.20);
+      flex-shrink: 0;
+    }
+    .hero__tagline {
+      font-size: 10.5px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(210,155,60,0.72);
+      font-weight: 400;
+    }
+
+    /* 主标题 */
+    .hero__headline {
+      font-size: clamp(38px, 5vw, 66px);
+      font-weight: 300;
+      color: #F5F2EE;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+    }
+    .hero__headline strong {
+      font-weight: 700;
+      display: block;
+      /* 轻微暖色渐变强调最后一行 */
+      background: linear-gradient(92deg, #F5F2EE 0%, #E8D9BA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 副标题 */
+    .hero__sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(245,242,238,0.48);
+      letter-spacing: 0.04em;
+      margin-bottom: 44px;
+      line-height: 1.7;
+      max-width: 420px;
+    }
+
+    /* 四大指标条 */
+    .hero__stats {
+      display: flex;
+      gap: 0;
+      margin-bottom: 44px;
+      border-top: 1px solid rgba(245,242,238,0.08);
+      border-bottom: 1px solid rgba(245,242,238,0.08);
+      padding: 20px 0;
+    }
+    .hstat {
+      flex: 1;
+      padding-right: 28px;
+      border-right: 1px solid rgba(245,242,238,0.08);
+      margin-right: 28px;
+    }
+    .hstat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .hstat__val {
+      font-size: 21px;
+      font-weight: 700;
+      color: #F5F2EE;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .hstat__val .unit { font-size: 12px; font-weight: 300; }
+    .hstat__lbl {
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,242,238,0.35);
+      line-height: 1.4;
+    }
+    .hstat__lbl .amber { color: rgba(210,155,60,0.80); }
+
+    /* CTA 按钮组 */
+    .hero__btns { display: flex; gap: 12px; align-items: center; }
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border-radius: 0;
+      cursor: pointer;
+      padding: 15px 38px;
+      transition: all 0.18s;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+    }
+    .btn--primary {
+      font-weight: 700;
+      background: #F5F2EE;
+      color: #0A0806;
+    }
+    .btn--primary:hover { background: #E0D9CC; }
+    .btn--ghost {
+      font-weight: 300;
+      background: transparent;
+      color: rgba(245,242,238,0.60);
+      border: 1px solid rgba(245,242,238,0.18);
+    }
+    .btn--ghost:hover { border-color: rgba(245,242,238,0.45); color: #F5F2EE; }
+
+    /* 右下角：场景说明 */
+    .hero__scene-note {
+      position: absolute;
+      bottom: 72px;
+      right: 60px;
+      text-align: right;
+    }
+    .hero__scene-note p {
+      font-size: 10px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(245,242,238,0.20);
+      line-height: 1.8;
+    }
+
+    /* 方案标注 */
+    .variant-tag {
+      position: fixed;
+      top: 20px; right: 20px;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 11px;
+      font-family: monospace;
+      padding: 6px 12px;
+      letter-spacing: 0.1em;
+      z-index: 9999;
+    }
+
+    @media (max-width: 900px) {
+      .hero { height: auto; min-height: unset; display: flex; flex-direction: column; }
+      .hero__bg { position: relative; width: 100%; height: 62vw; min-height: 260px; object-fit: cover; }
+      .hero__overlay, .hero__lamp-glow { display: none; }
+      .hero__content {
+        position: relative; bottom: unset; left: unset;
+        padding: 36px 24px 52px;
+        background: #0A0806;
+      }
+      .hero__scene-note { display: none; }
+      .hero__stats { flex-wrap: wrap; gap: 16px; border: none; padding: 0; }
+      .hstat { flex: 1 1 calc(50% - 8px); border: none; margin: 0; padding: 0; }
+      .hero__btns { flex-direction: column; }
+      .btn { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="variant-tag">方案 C — 夜间场景（kling图占位）</div>
+
+<section class="hero">
+  <!-- 替换为 fal.ai 生成图后，只需改 src -->
+  <img
+    class="hero__bg"
+    src="产品图片/产品海报/功能一/kling_20260319_作品_图片1_图片2_请参_256_1.png"
+    alt="Young professional working late with Opula desk lamp"
+  />
+  <div class="hero__overlay"></div>
+  <div class="hero__lamp-glow"></div>
+
+  <div class="hero__content">
+
+    <div class="hero__eyebrow">
+      <span class="hero__brand">Opula Technology</span>
+      <span class="hero__dot"></span>
+      <span class="hero__tagline">Intelligent Desk Lamp</span>
+    </div>
+
+    <h1 class="hero__headline">
+      Light that
+      <strong>guards your vision.</strong>
+    </h1>
+
+    <p class="hero__sub">
+      Full spectrum. Zero flicker. Voice-controlled.<br>
+      The desk lamp built for people who work seriously.
+    </p>
+
+    <div class="hero__stats">
+      <div class="hstat">
+        <div class="hstat__val">Ra<span class="unit">≥97</span></div>
+        <div class="hstat__lbl">Full Spectrum<br>Eye Care</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat__val">52<span class="unit">→67cm</span></div>
+        <div class="hstat__lbl">Patented<br>Telescoping</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat__val">8<span class="unit">m</span></div>
+        <div class="hstat__lbl">Offline Voice<br><span class="amber">"Hello Star"</span></div>
+      </div>
+      <div class="hstat">
+        <div class="hstat__val" style="font-size:15px;padding-top:2px">IEC</div>
+        <div class="hstat__lbl">Blue Light<br>Certified</div>
+      </div>
+    </div>
+
+    <div class="hero__btns">
+      <a href="#" class="btn btn--primary">Shop Now — $149.99</a>
+      <button class="btn btn--ghost">&#9654;&nbsp; Watch It Extend</button>
+    </div>
+
+  </div>
+
+  <div class="hero__scene-note">
+    <p>Full Spectrum Ra≥97</p>
+    <p>IEC Blue Light Certified</p>
+  </div>
+
+</section>
+
+</body>
+</html>
